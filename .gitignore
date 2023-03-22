@@ -1,3 +1,9 @@
+# mongodb data container
+/mongodb_data_container
+
+# file env
+.env
+
 # VS Code
 .vscode/
 
