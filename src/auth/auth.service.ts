@@ -56,7 +56,7 @@ export class AuthService {
   //**********register new user**********
   async create(createUserDto: CreateUserDto) {
     try {
-      const { name, email, id, role, status, isEmailVerified } =
+      const { name, email, id, role, status, is_email_verified } =
         await this.userModel.create({
           email: createUserDto.email.toLowerCase(),
           name: createUserDto.name.trim().toLowerCase().replace(/\s\s+/g, ' '),
@@ -67,7 +67,7 @@ export class AuthService {
         email,
         role,
         status,
-        verified: isEmailVerified,
+        verified: is_email_verified,
         _id: id,
         access_token: this.getJwtToken({ UUID: id }),
       };
@@ -102,7 +102,7 @@ export class AuthService {
       email: user.email,
       role: user.role,
       status: user.status,
-      verified: user.isEmailVerified,
+      verified: user.is_email_verified,
       _id: user._id,
       access_token: this.getJwtToken({ UUID: user.id }),
     };
@@ -165,8 +165,8 @@ export class AuthService {
             ? name.trim().toLowerCase().replace(/\s\s+/g, ' ')
             : undefined,
           password: password ? bcrypt.hashSync(password, 10) : undefined,
-          isEmailVerified: email ? false : undefined,
-          updatedBy: user,
+          is_email_verified: email ? false : undefined,
+          updated_by: user,
         },
         { new: true },
       );
@@ -177,13 +177,13 @@ export class AuthService {
 
   //**********UPDATE ROLE BY ID**********
   async updateRole(id: string, updateRoleDto: UpdateRoleDto, user: User) {
+    await this.getUserById(id);
     try {
-      await this.getUserById(id);
       return await this.userModel.findByIdAndUpdate(
         { _id: id },
         {
           ...updateRoleDto,
-          updatedBy: user,
+          updated_by: user,
         },
         { new: true },
       );
@@ -194,13 +194,13 @@ export class AuthService {
 
   //**********UPDATE STATUS BY ID**********
   async updateStatus(id: string, updateStatusDto: UpdateStatusDto, user: User) {
+    await this.findOne(id, user);
     try {
-      await this.findOne(id, user);
       return await this.userModel.findByIdAndUpdate(
         { _id: id },
         {
-          ...UpdateStatusDto,
-          updatedBy: user,
+          ...updateStatusDto,
+          updated_by: user,
         },
         { new: true },
       );

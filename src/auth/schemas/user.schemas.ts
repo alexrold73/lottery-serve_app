@@ -26,7 +26,7 @@ export class User extends Document {
   password: string;
 
   @Prop({ type: Boolean, default: false })
-  isEmailVerified?: boolean;
+  is_email_verified?: boolean;
 
   @Prop({
     type: String,
@@ -43,6 +43,6 @@ export class User extends Document {
   role?: ACCOUNT_ROLE;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: () => 'User' })
-  updatedBy?: User;
+  updated_by?: User;
 }
 export const UserSchema = SchemaFactory.createForClass(User);

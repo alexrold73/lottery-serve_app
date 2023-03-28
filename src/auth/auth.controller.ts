@@ -16,29 +16,29 @@ import {
 @Controller()
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
-
+  //**********register new user**********
   @Post('auth/register')
   create(@Body() createUserDto: CreateUserDto) {
     return this.authService.create(createUserDto);
   }
-
+  //**********Login**********
   @Post('auth/login')
   login(@Body() loginUserDto: LoginUserDto) {
     return this.authService.login(loginUserDto);
   }
-
+  //**********All Users**********
   @Get('/users')
   @Auth(ACCOUNT_ROLE.ADMIN, ACCOUNT_ROLE.ATC)
   findAll(@GetUser() user: User) {
     return this.authService.findAll(user);
   }
-
+  //**********USER BY ID**********
   @Get('/users/:id')
   @Auth()
   findOne(@GetUser() user: User, @Param('id', ParseMongoIdPipe) id: string) {
     return this.authService.findOne(id, user);
   }
-
+  //**********UPDATE ROLE BY ID**********
   @Patch('/users/update-role/:id')
   @Auth(ACCOUNT_ROLE.ADMIN)
   updateRole(
@@ -48,7 +48,7 @@ export class AuthController {
   ) {
     return this.authService.updateRole(id, updateRoleDto, user);
   }
-
+  //**********UPDATE STATUS BY ID**********
   @Patch('/users/update-status/:id')
   @Auth(ACCOUNT_ROLE.ADMIN)
   updateStatus(
@@ -58,7 +58,7 @@ export class AuthController {
   ) {
     return this.authService.updateStatus(id, updateStatusDto, user);
   }
-
+  //**********UPDATE USER BY ID**********
   @Patch('/users/update/:id')
   @Auth()
   updateUser(
