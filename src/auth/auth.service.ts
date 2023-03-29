@@ -42,7 +42,7 @@ export class AuthService {
         `Error de clave duplicada ${JSON.stringify(error.keyValue)} `,
       );
     }
-    this.logger.log(error);
+    this.logger.log(error, AuthService.name);
     throw new InternalServerErrorException();
   }
 
