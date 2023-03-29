@@ -1,3 +1,7 @@
+/**
+ * Devuelve un objeto de configuración de entorno.
+ * @returns {Object} Objeto de configuración de entorno.
+ */
 export const EnvConfiguration = () => ({
   environment: process.env.NODE_ENV || 'development',
   mongodburl: process.env.MONGODBURL,
