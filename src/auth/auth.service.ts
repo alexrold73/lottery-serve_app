@@ -212,6 +212,8 @@ export class AuthService {
 
 // TODO: Implementar
 /*
+requiere modulo de envio de email {
   verifiar rmail
   generar new password user de la misma cuenta olvido contraceña
+}
 */
